@@ -4,7 +4,7 @@ import sinon from 'sinon'
 import fetchMock from 'fetch-mock';
 
 
- 
+
 // myModule.onlyCallDomain2()
 // 	.then(() => {
 // 		expect(fetchMock.called('http://domain2')).to.be.true;
@@ -16,11 +16,9 @@ import fetchMock from 'fetch-mock';
 // 	.then(fetchMock.restore)
 
 test.beforeEach(() => {
-fetchMock
-	.mock('http://domain1', 200)
-	.mock('https://maidavale.org', 'GET', {
-		affectedRecords: 1
-	});
+  fetchMock.get('https://maidavale.org', {
+    affectedRecords: 1
+  });
 });
 
 test('Array', t => {
