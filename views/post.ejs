@@ -1,0 +1,30 @@
+<article>
+    <h3><a href="/page/<%= p.get('path') %>"><%= p.get('title') %></a>
+
+    <% if (user) { %>
+      <a href="/admin#/posts/edit/<%= p.id %>"><i class="general fi-pencil"></i></a>
+    <% } %>
+    </h3>
+    <div class="callout">Written by <%= p.related('user').get('username') %> on
+    <%= moment(p.get('created_at')).format("MMMM Do YYYY, h:mm a") %>
+  </div>
+    <% if (summary) { %>
+      <%- markdown.render(p.get('summary')) %>
+      <p>
+      <a class="small" href="/page/<%= p.get('path') %>">Read more</a>
+      </p>
+    <% } else {%>
+      <%- markdown.render(p.get('body')) %>
+    <% } %>
+
+    <div class="row">
+    <div class="large-9 columns" role="content">
+    <% if (p.related('tags')) { %>
+      <% p.related('tags').forEach(function(tag) { %>
+        <a href="/category/<%=tag.get('name') %>"><span class="radius label"><%=tag.get('name') %></span></a>
+      <% }); %>
+    <% } %>
+    </div>
+    </div>
+</article>
+<hr />

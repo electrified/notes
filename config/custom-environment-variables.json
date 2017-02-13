@@ -1,0 +1,9 @@
+{
+  "connection": {
+      "user": "DB_USER",
+      "password": "DB_PASSWORD",
+      "database": "DB_DATABASE",
+      "host": "DB_HOST"
+  },
+  "assetsdir": "ASSETS_DIR"
+}

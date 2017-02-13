@@ -1,0 +1,18 @@
+<!-- Sidebar -->
+
+<aside class="large-3 columns">
+  <h5>Categories</h5>
+  <ul class="side-nav">
+      <% for(var i=0; i< tags.length; i++) { %>
+          <li><a href="/category/<%=tags[i].name %>"><%=tags[i].name %></a></li>
+        <% } %>
+      </ul>
+  <div class="panel">
+    <h5>Featured</h5>
+    <p>This site is built with node.js</p>
+    <a href="http://nodejs.org/">nodejs.org &rarr;</a>
+  </div>
+</aside>
+
+<!-- End Sidebar -->
+    

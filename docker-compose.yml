@@ -1,0 +1,29 @@
+version: '2'
+services:
+  web:
+    build: .
+    ports:
+     - "8080:3000"
+    volumes:
+     - .:/usr/src/app
+     - assets:/assets
+    depends_on:
+     - database
+    environment:
+      DB_USER: notes
+      DB_PASSWORD: password
+      DB_DATABASE: notes
+      DB_HOST: database
+      ASSETS_DIR: /assets
+  database:
+    ports:
+     - "5432:5432"
+    image: "postgres:9.6-alpine"
+    volumes:
+     - database_data:/var/lib/postgres
+    environment:
+       POSTGRES_PASSWORD: password
+       POSTGRES_USER: notes
+volumes:
+    database_data:
+    assets:

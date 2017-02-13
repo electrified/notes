@@ -1,0 +1,13 @@
+[Service]
+ExecStart=/srv/notes/server.js
+Restart=always
+StandardOutput=syslog
+StandardError=syslog
+SyslogIdentifier=notes
+User=root
+#Group=srv-node-sample
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
+

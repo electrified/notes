@@ -1,0 +1,23 @@
+{
+    "port": 3000,
+    "ipaddress": "0.0.0.0",
+    "connection": {
+        "user": "username",
+        "password": "password",
+        "database": "database",
+        "host": "127.0.0.1",
+        "charset": "utf8"
+    },
+    "mailconfig": {
+        "service": "Gmail",
+        "auth": {
+            "user": "user@gmail.com",
+            "pass": "password1"
+        }
+    },
+    "assetsdir": "./assets/",
+    "sitetitle": "My New Blog",
+    "sitesubtitle": "Read here!",
+    "verbose": false,
+    "cacheLength": 10
+}

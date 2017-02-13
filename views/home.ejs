@@ -1,0 +1,22 @@
+<% include head %>
+<div class="row">
+<div class="large-9 columns" role="main">
+<% if (posts.length > 0) { %>
+    <% posts.forEach(function(post) { %>
+        <%- include('post', {p: post, summary: true}) %>
+    <% }) %>
+    <% for(var i=1; i<=pages; i++) { %>
+      <% if (i == page) { %>
+        <%=i%>
+      <% } else { %>
+        <a href="?page=<%=i%>"><%=i%></a>
+      <% } %>
+    <% } %>
+<% } %>
+</div>
+
+<% include sidebar %>
+
+</div>
+
+<% include foot %>
