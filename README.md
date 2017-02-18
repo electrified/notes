@@ -2,6 +2,8 @@
 
 Yet another blog engine
 
+[![CircleCI](https://circleci.com/gh/electrified/notes.svg?style=svg)](https://circleci.com/gh/electrified/notes)
+
 Prerequisites
 -------------
 * Node.js

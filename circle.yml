@@ -4,15 +4,15 @@ machine:
 dependencies:
   override:
     - docker info
-    - docker build --rm=false -t electrified/notes .
+    - docker build --rm=false -t electrified/notes:$CIRCLE_SHA1 .
 
-# test:
-#   override:
-#     - docker run -d -p 9200:9200 electrified/notes
+test:
+  override:
+    - docker run electrified/notes:$CIRCLE_SHA1 npm test
 
 deployment:
   hub:
     branch: master
     commands:
       - docker login -e $DOCKER_EMAIL -u $DOCKER_USER -p $DOCKER_PASS
-      - docker push electrified/notes
+      - docker push electrified/notes:$CIRCLE_SHA1
