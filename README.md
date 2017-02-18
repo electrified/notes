@@ -4,8 +4,9 @@ Yet another blog engine
 
 Prerequisites
 -------------
-Node.js
-PostgreSQL
+* Node.js
+* PostgreSQL
+* Docker (optional)
 
 ## Installation
 
@@ -34,7 +35,14 @@ Create an admin user
 export NODE_ENV=production
 npm run createUser
 
-Start up application
+## Running
+
+Supported environment variables
+* DB_USER
+* DB_PASSWORD
+* DB_DATABASE
+* DB_HOST
+* ASSETS_DIR
 
 npm run dev
 
