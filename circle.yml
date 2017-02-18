@@ -8,7 +8,8 @@ dependencies:
 
 test:
   override:
-    - docker run electrified/notes:$CIRCLE_SHA1 npm test
+    - mkdir -p $CIRCLE_TEST_REPORTS/reports
+    - docker run electrified/notes:$CIRCLE_SHA1 npm run test-ci -s > $CIRCLE_TEST_REPORTS/reports/ava.xml
 
 deployment:
   hub:
