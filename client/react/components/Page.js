@@ -1,7 +1,7 @@
 /* eslint-env browser */
 import React from 'react';
 import {Link} from 'react-router';
-import {connect} from 'react-redux'
+import {connect} from 'react-redux';
 
 import Footer from './Footer';
 
@@ -57,7 +57,7 @@ export const Page = React.createClass({
               {this.props.children}
             </div>
           </div>
-          <Footer />
+          <Footer sitetitle={this.props.sitetitle} />
           </section>
 </div>
     );

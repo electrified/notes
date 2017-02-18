@@ -2,7 +2,7 @@
     <h3><a href="/page/<%= p.get('path') %>"><%= p.get('title') %></a>
 
     <% if (user) { %>
-      <a href="/admin#/posts/edit/<%= p.id %>"><i class="general fi-pencil"></i></a>
+      <a href="/admin/posts/post/<%= p.id %>"><i class="general fi-pencil"></i></a>
     <% } %>
     </h3>
     <div class="callout">Written by <%= p.related('user').get('username') %> on

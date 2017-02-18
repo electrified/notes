@@ -1,5 +1,4 @@
-Notes - a node.js blog engine
-=============================
+# Notes - a node.js blog engine
 
 Yet another blog engine
 
@@ -8,8 +7,7 @@ Prerequisites
 Node.js
 PostgreSQL
 
-Installation
-------------
+## Installation
 
 Install dependencies
 npm install --python=/usr/bin/python2
@@ -44,15 +42,15 @@ Log into admin area
 /admin
 Create first post!
 
-TODO
-----
-Improve 404 page
-Check all promises usage, use promises instead of callbacks
-write tests
-check dependency versions
-Darker UI?
-Express error handling middleware to remove more boilerplate
-Stop using Facebook's fixed-data-tables as they are unmaintained?
-Fix window title on admin pages, make it use configured site title
-Cache invalidation when changing published status
-Fix HMR
+## TODO
+
+* Improve 404 page
+* Check all promises usage, use promises instead of callbacks
+* write tests
+* check dependency versions
+* Darker UI?
+* Express error handling middleware to remove more boilerplate
+* Stop using Facebook's fixed-data-tables as they are unmaintained?
+* Fix window title on admin pages, make it use configured site title
+* Cache invalidation when changing published status
+* Fix HMR

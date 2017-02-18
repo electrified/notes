@@ -3,5 +3,5 @@
 /public/css/*
 /public/webpack
 /.directory
-config.development.json
+/config/development.json
 knexfile.js

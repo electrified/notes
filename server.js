@@ -79,5 +79,5 @@ if ('development' === app.get('env')) {
 
 http.createServer(app).listen(config.get('port'), config.get('ipaddress'), () => {
   log.info('Node server started on %s:%d ...', config.get('ipaddress'), config.get('port'));
-  log.info('DB user: %s Password: %s Database: %s', config.get('connection.user'), config.get('connection.password'), config.get('connection.database'));
+  log.info('DB user: %s Database: %s', config.get('connection.user'), config.get('connection.database'));
 });

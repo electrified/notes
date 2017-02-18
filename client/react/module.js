@@ -1,8 +1,8 @@
 /* eslint-env browser */
 import React from 'react';
 import {render} from 'react-dom';
-import { Router, Route, Link, IndexRoute, browserHistory } from 'react-router';
-import { createStore, applyMiddleware } from 'redux';
+import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { createStore, applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import logger from 'redux-logger';
 import thunk from 'redux-thunk';
@@ -20,10 +20,11 @@ const middleware = process.env.NODE_ENV === 'production' ?
   [ thunk ] :
   [ thunk, logger() ];
 
-const store = createStore(
-  reducer,
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const store = createStore(reducer, composeEnhancers(
   applyMiddleware(...middleware)
-);
+));
 
 store.dispatch(getPosts());
 store.dispatch(getAssets());

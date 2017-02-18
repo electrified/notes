@@ -71,7 +71,7 @@ const Posts = React.createClass({
               )}
               width={this.state.columnWidths.title}
               isResizable={true}
-            /> 
+            />
             <Column
               columnKey="url"
               flexGrow={1}
@@ -125,7 +125,7 @@ const Posts = React.createClass({
             />
           </Table>
         </div>
-        <Link to={`/admin/posts/add`}>add new post</Link>
+        <Link className="button" to={`/admin/posts/add`}>add new post</Link>
         <div className="detail">
           {this.props.children && React.cloneElement(this.props.children, {
             posts: this.props.posts

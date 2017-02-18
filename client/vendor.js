@@ -1,6 +1,6 @@
 window.jQuery = window.$ = require("jquery");
 
-require('foundation-sites/dist/foundation');
+require('foundation-sites/dist/js/foundation');
 
 $(document).ready(function() {
 $(document).foundation();

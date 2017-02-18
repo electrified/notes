@@ -22,7 +22,7 @@
         "node": true,
         "browser": true
     },
-    "extends": "eslint:recommended",
+    "extends": ["eslint:recommended", "plugin:react/recommended"],
     "ecmaFeatures": {
         "jsx": true,
         "experimentalObjectRestSpread": true

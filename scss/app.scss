@@ -2,7 +2,7 @@
 
 @import 'settings';
 @import 'foundation';
-/* @import 'motion-ui'; */
+// @import 'motion-ui';
 
 @include foundation-global-styles;
 @include foundation-grid;
@@ -17,13 +17,14 @@
 @include foundation-breadcrumbs;
 @include foundation-button-group;
 @include foundation-callout;
+@include foundation-card;
 @include foundation-close-button;
 @include foundation-menu;
 @include foundation-menu-icon;
 @include foundation-drilldown-menu;
 @include foundation-dropdown;
 @include foundation-dropdown-menu;
-@include foundation-flex-video;
+@include foundation-responsive-embed;
 @include foundation-label;
 @include foundation-media-object;
 @include foundation-off-canvas;
@@ -46,9 +47,8 @@
 @include foundation-float-classes;
 // @include foundation-flex-classes;
 
-/* @include motion-ui-transitions; */
-/* @include motion-ui-animations; */
-
+// @include motion-ui-transitions;
+// @include motion-ui-animations;
 
 // for presentation only
 body {marging-top: 2rem;}
@@ -66,7 +66,7 @@ $menu-background: #333;
     background: $menu-background;
     li {
       background: $menu-background;
-    
+
         a {
           color: #fff;
       }
@@ -76,7 +76,7 @@ $menu-background: #333;
 
 .menu-text {
   color: #fff;
-  
+
   @media only screen and (max-width: 40em) {
     display: none !important;
   }

@@ -2,9 +2,8 @@
 import React, {PropTypes} from 'react';
 import TagsInput from 'react-tagsinput';
 import {connect} from 'react-redux';
-import {Link} from 'react-router';
-import {createPost, getPostForEdit, resetEditPostForm} from '../actions/AppActions';
-import {List, Map, fromJS} from 'immutable';
+import {createPost, getPostForEdit} from '../actions/AppActions';
+import {fromJS} from 'immutable';
 import {Field, reduxForm} from 'redux-form/immutable';
 import {isUnusedPath} from '../api/api';
 import {findPost} from '../reducers/posts.js';
@@ -28,7 +27,6 @@ const validate = values => {
 };
 
 const asyncValidate = (values/*, dispatch */) => {
-  console.log(values);
   return isUnusedPath(values.get('id'), values.get('path'));
 };
 
@@ -38,9 +36,6 @@ var EditPostForm = React.createClass({
     id: React.PropTypes.string,
     submitting: PropTypes.bool.isRequired,
     handleSubmit: PropTypes.func.isRequired
-  },
-  handleTagChange(tags) {
-    this.props.fields.tags.onChange(tags);
   },
   renderField({ input, label, type, meta: { asyncValidating, touched, error } }) {
     return (
@@ -58,18 +53,18 @@ var EditPostForm = React.createClass({
       <div>
         <label>{label}</label>
         <div className={asyncValidating ? 'async-validating' : ''}>
-          <textarea {...input} placeholder={label}/>
+          <textarea {...input} placeholder={label} rows={20} />
           {touched && error && <span>{error}</span>}
         </div>
       </div>
     );
   },
-  renderTags({ input, label, type, meta: { asyncValidating, touched, error } }) {
+  renderTags({ input, label, meta: { asyncValidating, touched, error } }) {
     return (
       <div>
         <label>{label}</label>
         <div className={asyncValidating ? 'async-validating' : ''}>
-          <TagsInput {...input} onChange={this.handleTagChange}/>
+          <TagsInput {...input} />
           {touched && error && <span>{error}</span>}
         </div>
       </div>
@@ -78,12 +73,13 @@ var EditPostForm = React.createClass({
   render: function() {
     const {asyncValidating, submitting} = this.props;
 
-    // <Field
-    //   name="tags"
-    //   component={this.renderTags}
-    // />
-
     return(<form onSubmit={this.props.handleSubmit}>
+
+      <Field
+        name="tags"
+        label="tags"
+        component={this.renderTags}
+      />
 
       <Field
         type="text"
@@ -114,7 +110,7 @@ var EditPostForm = React.createClass({
       />
 
       <div className="row">
-        <button type="submit" disabled={submitting}>
+        <button className="button" type="submit" disabled={submitting}>
         {submitting ? <i/> : <i/>}
         Save post
         </button>
@@ -136,8 +132,6 @@ function mapStateToProps(state, ownProps) {
   const post = findPost(state.posts, id);
 
   const initialValues = (id && post) ? post : defaults;
-  console.log(id);
-  console.log(initialValues);
 
   return {
     id,
@@ -145,11 +139,10 @@ function mapStateToProps(state, ownProps) {
   };
 }
 
-export default connect(mapStateToProps, {onSubmit: createPost, getPostForEdit})
-  (reduxForm({
-    form: 'editPost',
-    validate,
-    asyncValidate,
-    asyncBlurFields: [ 'path' ],
-    enableReinitialize: true
-  })(EditPostForm));
+export default connect(mapStateToProps, {onSubmit: createPost, getPostForEdit})(reduxForm({
+  form: 'editPost',
+  validate,
+  asyncValidate,
+  asyncBlurFields: [ 'path' ],
+  enableReinitialize: true
+})(EditPostForm));

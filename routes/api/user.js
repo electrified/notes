@@ -1,3 +1,4 @@
+const uuid = require('uuid');
 const express = require('express');
 const ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 const router = new express.Router();
@@ -78,8 +79,6 @@ router.get('/current', ensureLoggedIn(), function(req, res) {
 });
 
 router.post('/resetpassword', function(req, res) {
-  var uuid = require('node-uuid');
-
   new db.user({
     username: req.body.username
   }).fetch().then(user => {

@@ -1,4 +1,4 @@
-FROM node:7.2-slim
+FROM node:7.5-slim
 
 # Create app directory
 # RUN mkdir -p /usr/src/app
@@ -14,4 +14,4 @@ RUN npm install
 
 EXPOSE 3000
 
-CMD [ "npm", "run", "dev" ]
+CMD [ "node", "server.js" ]

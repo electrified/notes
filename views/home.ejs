@@ -3,7 +3,7 @@
 <div class="large-9 columns" role="main">
 <% if (posts.length > 0) { %>
     <% posts.forEach(function(post) { %>
-        <%- include('post', {p: post, summary: true}) %>
+        <%- include('post', {p: post, summary: false}) %>
     <% }) %>
     <% for(var i=1; i<=pages; i++) { %>
       <% if (i == page) { %>

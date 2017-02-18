@@ -8,7 +8,7 @@ export default React.createClass({
         <hr />
         <div className="row">
           <div className="large-6 columns">
-            <p>&copy; 2013-2016 maidavale.org.
+            <p>&copy; 2013-2017 {this.props.sitetitle}.
             </p>
           </div>
           <div className="large-6 columns">
