@@ -10,32 +10,35 @@ Prerequisites
 * PostgreSQL
 * Docker (optional)
 
-## Installation
+## Installation without using Docker
 
-Install dependencies
-npm install --python=/usr/bin/python2
+1. Install dependencies `npm install --python=/usr/bin/python2`
 
-Symlink systemd service file
-ln -s /srv/http/notes/notes.service /etc/systemd/system
+2. Symlink systemd service file
+`ln -s /srv/http/notes/notes.service /etc/systemd/system`
 
-Install postgres and initdb
-su - postgres -c "initdb --locale en_GB.UTF-8 -D '/var/lib/postgres/data'"
+3. Install postgres and initdb
+`su - postgres -c "initdb --locale en_GB.UTF-8 -D '/var/lib/postgres/data'"``
 
-Create postgres database
+4. Create postgres database
+~~~~
 su - postgres
 createuser notes -P
 createdb -O notes notes
+~~~~
 
-configure connection strings in
+5. configure connection strings in
 1) config.(development|production).json
 2) knexfile.js
 
-Run db migration to create schema
-npm run migrate migrate:latest
+6. Run db migration to create schema
+`npm run migrate migrate:latest`
 
-Create an admin user
+7. Create an admin user
+~~~~
 export NODE_ENV=production
 npm run createUser
+~~~~
 
 ## Running
 
