@@ -36,9 +36,11 @@ prompt.get(schema, function(err, result) {
   .save()
   .then(function(user) {
     console.log("User created succesfully!");
+    process.exit(0);
   })
   .catch(function(err) {
-    console.error(err.detail);
+    console.error(err.stack);
+    process.exit(1);
   })
   .finally(function() {
     db.bookshelf.knex.destroy(function() {

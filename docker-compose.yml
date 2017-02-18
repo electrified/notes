@@ -1,7 +1,7 @@
-version: '2'
+version: '3'
 services:
   web:
-    build: .
+    image: electrified/notes:latest
     ports:
      - "8080:3000"
     volumes:
@@ -16,8 +16,6 @@ services:
       DB_HOST: database
       ASSETS_DIR: /assets
   database:
-    ports:
-     - "5432:5432"
     image: "postgres:9.6-alpine"
     volumes:
      - database_data:/var/lib/postgres
