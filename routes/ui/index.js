@@ -22,7 +22,6 @@ function textCutter(n, text) {
   return short;
 }
 
-
 var LRU = require("lru-cache"),
   options = {
     max: 500,

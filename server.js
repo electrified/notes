@@ -1,20 +1,21 @@
 #!/usr/bin/env node
+const http = require('http');
+const path = require('path');
+const flash = require('connect-flash');
+const express = require('express');
+const passport = require("passport");
 
-var http = require('http');
-var path = require('path');
-var flash = require('connect-flash');
-var express = require('express');
-var passport = require("passport");
-
-var config = require('config');
+const config = require('config');
 require("./auth");
-var app = express();
-var favicon = require('serve-favicon');
-var morgan = require('morgan');
-var bodyParser = require('body-parser');
-var session = require('express-session');
-var compress = require('compression');
-var errorhandler = require('errorhandler');
+const app = express();
+const favicon = require('serve-favicon');
+const morgan = require('morgan');
+const bodyParser = require('body-parser');
+const session = require('express-session');
+const compress = require('compression');
+const errorhandler = require('errorhandler');
+const webpack = require('webpack');
+const webpackConfig = require('./webpack.config.js');
 
 var bunyan = require('bunyan');
 var log = bunyan.createLogger({
@@ -62,8 +63,6 @@ app.use('/api/assets', require('./routes/api/asset.js'));
 app.use('/api/comment', require('./routes/api/comment.js'));
 app.use('/api/app', require('./routes/api/app.js'));
 
-var webpack = require('webpack');
-var webpackConfig = require('./webpack.config.js');
 var compiler = webpack(webpackConfig);
 
 app.use(require("webpack-dev-middleware")(compiler, {
