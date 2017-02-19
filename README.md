@@ -9,8 +9,20 @@ Yet another blog engine
 * PostgreSQL
 * Docker (optional)
 
-## Installation without using Docker
+## Installation with docker (Recommended)
+1. Fetch docker-compose.* files from repository
+2. Adjust database passwords and config as necessary
+3. Start the containers `docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d`
+4. Run database migrations `docker exec notes_web npm run migrate`
+5. Add an admin user `docker exec -i notes_web npm run createUser`
 
+### Dumping the database
+`docker exec notes_database pg_dump -U notes notes > db.sql`
+### Restoring the database
+`docker exec -i notes_database psql -U notes notes < db.sql`
+
+## Installation without using Docker
+1. Clone this repo into e.g. `/srv/http/notes/`
 1. Install dependencies `npm install --python=/usr/bin/python2`
 2. Symlink systemd service file
 `ln -s /srv/http/notes/notes.service /etc/systemd/system`
@@ -23,8 +35,7 @@ createuser notes -P
 createdb -O notes notes
 ~~~~
 5. configure connection strings in
-1) config.(development|production).json
-2) knexfile.js
+`config.(development|production).json`
 6. Run db migration to create schema
 `npm run migrate`
 7. Create an admin user
@@ -32,13 +43,8 @@ createdb -O notes notes
 export NODE_ENV=production
 npm run createUser
 ~~~~
-
-## Installation with docker
-1. Fetch docker-compose.* files from repository
-2. Adjust database passwords and config as necessary
-3. `docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d`
-4. Run database migrations `docker exec notesgithub_web npm run migrate`
-5. Add an admin user `docker exec -i notesgithub_web npm run createUser`
+8. Enable the service `systemctl enable notes`
+9. Start the service `systemctl start notes`
 ## Running
 
 Supported environment variables
@@ -47,8 +53,6 @@ Supported environment variables
 * DB_DATABASE
 * DB_HOST
 * ASSETS_DIR
-
-npm run dev
 
 Log into admin area
 `/admin`
@@ -66,3 +70,8 @@ Create first post!
 * Fix window title on admin pages, make it use configured site title
 * Cache invalidation when changing published status
 * Fix HMR
+* Fix `Warning: connect.session() MemoryStore is not designed for a production environment, as it will leak memory, and will not scale past a single process.`
+* Precompile webpack
+* Init db with GB locale
+* Standardise log format output
+* How to perform clean shutdown
