@@ -38,7 +38,7 @@ npm run createUser
 2. Adjust database passwords and config as necessary
 3. `docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d`
 4. Run database migrations `docker exec notesgithub_web npm run migrate`
-5. Add an admin user `docker exec notesgithub_web npm run createUser`
+5. Add an admin user `docker exec -i notesgithub_web npm run createUser`
 ## Running
 
 Supported environment variables

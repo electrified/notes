@@ -34,7 +34,6 @@ var LRU = require("lru-cache"),
   contentCache = LRU(options);
 
 router.use(/^\/(?!api).*$/, function(req, res, next) {
-  console.log("adding stuff for front end routes")
   // var err = req.session.error,
   //     msg = req.session.success;
   res.locals.user = req.user;
