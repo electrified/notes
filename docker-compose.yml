@@ -3,7 +3,7 @@ services:
   web:
     image: electrified/notes:latest
     ports:
-     - "8080:3000"
+     - "3000:3000"
     volumes:
      - .:/usr/src/app
      - assets:/assets
@@ -23,6 +23,7 @@ services:
        POSTGRES_PASSWORD: password
        POSTGRES_USER: notes
        POSTGRES_INITDB_ARGS: "--locale en_GB.UTF-8"
+       POSTGRES_DB: notes
 volumes:
     database_data:
     assets:

@@ -11,7 +11,7 @@ Yet another blog engine
 
 ## Installation with docker (Recommended)
 1. Fetch docker-compose.* files from repository
-2. Adjust database passwords and config as necessary
+2. `Copy docker-compose.example.yml` to `docker-compose.prod.yml` Adjust database passwords and config as necessary
 3. Start the containers `docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d`
 4. Run database migrations `docker exec notes_web npm run migrate`
 5. Add an admin user `docker exec -i notes_web npm run createUser`
@@ -20,6 +20,8 @@ Yet another blog engine
 `docker exec notes_database pg_dump -U notes notes > db.sql`
 ### Restoring the database
 `docker exec -i notes_database psql -U notes notes < db.sql`
+### Querying the database
+`docker exec -it notes_database psql -U notes notes`
 
 ## Installation without using Docker
 1. Clone this repo into e.g. `/srv/http/notes/`

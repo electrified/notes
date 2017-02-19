@@ -1,0 +1,15 @@
+version: '3'
+services:
+  web:
+    environment:
+      NODE_ENV: production
+      NODE_CONFIG: '{    "sitetitle": "Example Blog Name",
+                         "sitesubtitle": "An Example Blog Subtitle"}'
+      DB_USER: notesyolo
+      DB_PASSWORD: cheese
+      DB_DATABASE: notes12
+  database:
+    environment:
+       POSTGRES_USER: notesyolo
+       POSTGRES_PASSWORD: cheese
+       POSTGRES_DB: notes12
