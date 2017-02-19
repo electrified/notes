@@ -3,6 +3,7 @@ machine:
     - docker
 dependencies:
   override:
+    - rm -rf node_modules
     - docker info
     - docker build --rm=false -t electrified/notes:$CIRCLE_SHA1 .
 
