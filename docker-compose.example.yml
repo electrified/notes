@@ -2,7 +2,6 @@ version: '3'
 services:
   web:
     environment:
-      NODE_ENV: production
       NODE_CONFIG: '{"sitetitle": "maidavale.org",
                      "sitesubtitle": "Another tech blog"}'
   #     DB_USER: notesyolo

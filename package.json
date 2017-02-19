@@ -8,7 +8,8 @@
     "lint": "eslint .",
     "test": "ava",
     "test-ci": "ava --tap | tap-xunit",
-    "createUser": "node bin/adduser.js"
+    "createUser": "node bin/adduser.js",
+    "build": "NODE_ENV=production webpack -p --config webpack.config.js"
   },
   "description": "Wombling Notes Application",
   "keywords": [

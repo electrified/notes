@@ -12,9 +12,10 @@ Yet another blog engine
 ## Installation with docker (Recommended)
 1. Fetch docker-compose.* files from repository `wget https://raw.githubusercontent.com/electrified/notes/master/docker-compose.yml && wget https://raw.githubusercontent.com/electrified/notes/master/docker-compose.example.yml`
 2. Copy `docker-compose.example.yml` to `docker-compose.prod.yml` Adjust database passwords and config as necessary
-3. Start the containers `docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d`
-4. Run database migrations `docker exec notes_web_1 npm run migrate`
-5. Add an admin user `docker exec -i notes_web_1 npm run createUser`
+3. Ensure latest images downloaded `docker-compose pull` (only if has been run before)
+4. Start the containers `docker-compose -f docker-compose.yml -f docker-compose.prod.yml up -d`
+5. Run database migrations `docker exec notes_web_1 npm run migrate`
+6. Add an admin user `docker exec -i notes_web_1 npm run createUser`
 
 ### Dumping the database
 `docker exec notes_database_1 pg_dump -U notes notes > db.sql`
@@ -69,7 +70,8 @@ Create first post!
 * Cache invalidation when changing published status
 * Fix HMR
 * Fix `Warning: connect.session() MemoryStore is not designed for a production environment, as it will leak memory, and will not scale past a single process.`
-* Precompile webpack
 * Init db with GB locale
 * Standardise log format output
 * How to perform clean shutdown
+* Make session key not hardcoded
+* Don't use HMR when in production, prebuild assets

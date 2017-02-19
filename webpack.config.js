@@ -1,7 +1,6 @@
 'use strict';
 
 var webpack = require('webpack'),
-  HtmlWebpackPlugin = require('html-webpack-plugin'),
   ExtractTextPlugin = require("extract-text-webpack-plugin"),
   path = require('path'),
   srcPath = path.join(__dirname, 'client');
@@ -10,10 +9,15 @@ module.exports = {
   target: 'web',
   cache: true,
   entry: {
-    public: [path.join(srcPath, 'public.js'), 'webpack-hot-middleware/client'],
-    admin: [path.join(srcPath, 'admin.js'), 'webpack-hot-middleware/client'],
-    vendor: ['vendor', 'webpack-hot-middleware/client']
+    public: [path.join(srcPath, 'public.js')],
+    admin: [path.join(srcPath, 'admin.js')],
+    vendor: [path.join(srcPath, 'vendor.js')]
   },
+  // entry: {
+  //   public: [path.join(srcPath, 'public.js'), 'webpack-hot-middleware/client'],
+  //   admin: [path.join(srcPath, 'admin.js'), 'webpack-hot-middleware/client'],
+  //   vendor: ['vendor', 'webpack-hot-middleware/client']
+  // },
   resolve: {
     root: srcPath,
     extensions: ['', '.js'],
@@ -74,27 +78,18 @@ module.exports = {
     //     warnings: false
     //   }
     // }),
-//     new HtmlWebpackPlugin({
-//       inject: true,
-//       template: path.join(srcPath, 'index.html')
-//     }),
     new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
+    // new webpack.HotModuleReplacementPlugin(),
     new webpack.NoErrorsPlugin(),
-    // new webpack.DefinePlugin({
-    //   'process.env': {
-    //     // This has effect on the react lib size
-    //     'NODE_ENV': JSON.stringify('production')
-    //   }
-    // })
+    new webpack.DefinePlugin({
+      'process.env': {
+        // This has effect on the react lib size
+        'NODE_ENV': JSON.stringify('production')
+      }
+    })
   ],
-
   debug: true,
   devtool: 'source-map',
-  devServer: {
-    contentBase: './public/webpack',
-    historyApiFallback: true
-  },
   sassLoader: {
     includePaths: [path.resolve(__dirname, "./node_modules/foundation-sites/scss/")]
   }

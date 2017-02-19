@@ -9,6 +9,7 @@ services:
     depends_on:
      - database
     environment:
+      NODE_ENV: production
       DB_USER: notes
       DB_PASSWORD: password
       DB_DATABASE: notes
