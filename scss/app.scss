@@ -11,47 +11,44 @@
 @include foundation-button;
 @include foundation-forms;
 // @include foundation-range-input;
-@include foundation-accordion;
-@include foundation-accordion-menu;
-@include foundation-badge;
-@include foundation-breadcrumbs;
-@include foundation-button-group;
+// @include foundation-accordion;
+// @include foundation-accordion-menu;
+// @include foundation-badge;
+// @include foundation-breadcrumbs;
+// @include foundation-button-group;
 @include foundation-callout;
-@include foundation-card;
-@include foundation-close-button;
+// @include foundation-card;
+// @include foundation-close-button;
 @include foundation-menu;
-@include foundation-menu-icon;
-@include foundation-drilldown-menu;
-@include foundation-dropdown;
+// @include foundation-menu-icon;
+// @include foundation-drilldown-menu;
+// @include foundation-dropdown;
 @include foundation-dropdown-menu;
-@include foundation-responsive-embed;
+// @include foundation-responsive-embed;
 @include foundation-label;
-@include foundation-media-object;
-@include foundation-off-canvas;
-@include foundation-orbit;
+// @include foundation-media-object;
+// @include foundation-off-canvas;
+// @include foundation-orbit;
 @include foundation-pagination;
-@include foundation-progress-bar;
+// @include foundation-progress-bar;
 // @include foundation-progress-element;
 // @include foundation-meter-element;
-@include foundation-slider;
-@include foundation-sticky;
-@include foundation-reveal;
-@include foundation-switch;
-@include foundation-table;
-@include foundation-tabs;
-@include foundation-thumbnail;
-@include foundation-title-bar;
-@include foundation-tooltip;
+// @include foundation-slider;
+// @include foundation-sticky;
+// @include foundation-reveal;
+// @include foundation-switch;
+// @include foundation-table;
+// @include foundation-tabs;
+// @include foundation-thumbnail;
+// @include foundation-title-bar;
+// @include foundation-tooltip;
 @include foundation-top-bar;
 @include foundation-visibility-classes;
-@include foundation-float-classes;
+// @include foundation-float-classes;
 // @include foundation-flex-classes;
 
 // @include motion-ui-transitions;
 // @include motion-ui-animations;
-
-// for presentation only
-body {marging-top: 2rem;}
 
 $menu-background: #333;
 
@@ -72,6 +69,11 @@ $menu-background: #333;
       }
     }
   }
+}
+
+ul.side-nav {
+  list-style-type: none;
+  line-height: 2rem;
 }
 
 .menu-text {
@@ -112,4 +114,26 @@ $menu-background: #333;
 
 .js-drilldown-back::before {
   border-color: transparent #fff transparent transparent;
+}
+
+.footer {
+  padding-top: 2rem;
+}
+
+$page-number-width: 80px;
+
+@media screen and (max-width: 39.9375em) {
+  .pagination:after {
+    display: inline-block;
+    content: attr(data-page) ' of ' attr(data-total);
+    position: relative;
+    text-align: center;
+    width: $page-number-width;
+    right: $page-number-width;
+  }
+
+  .pagination-next {
+    position: relative;
+    left: $page-number-width;
+  }
 }

@@ -29,7 +29,7 @@ app.set('view engine', 'ejs');
 app.use(helmet({
   contentSecurityPolicy: {
     directives: {
-      defaultSrc: ["'self'", "www.google-analytics.com"],
+      scriptSrc: ["'self'", "www.google-analytics.com", "'sha256-bIYO/I9i/4hpcCLUOGER+gQ/mL65dofOd0FcDbDHCbw='"],
       styleSrc: ["'self'", "'unsafe-inline'"]
     }
   }

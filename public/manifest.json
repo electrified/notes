@@ -1,5 +1,5 @@
 {
-  "short_name": "Maidavale.org blog",
+  "short_name": "maidavale",
   "name": "Ed's maidavale.org blog",
   "icons": [
     {
@@ -18,5 +18,8 @@
       "sizes": "192x192"
     }
   ],
-  "start_url": "/?utm_source=homescreen"
+  "start_url": "/?utm_source=homescreen",
+  "background_color": "#ffffff",
+  "theme_color": "#1779ba",
+  "display": "browser"
 }

@@ -2,10 +2,11 @@ version: '3'
 services:
   web:
     build: .
-  # environment:
-  #   NODE_ENV: development
-  # volumes:
-  #  - .:/usr/src/app
+    entrypoint: ["npm", "run", "dev"]
+    environment:
+      NODE_ENV: development
+    volumes:
+      - .:/usr/src/app
   database:
     ports:
      - "5432:5432"

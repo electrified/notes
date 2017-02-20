@@ -1,11 +1,11 @@
 const db = require('../models');
 
-exports.getAll = function() {
+exports.getAll = () => {
   return new db.content().fetchAll().then(content => {
     var contents = {};
 
-    content.map(function(content) {
-      contents[content.get('key')] = content.get('body');
+    content.map(item => {
+      contents[item.get('key')] = item.get('body');
     });
     return contents;
   });

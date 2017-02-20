@@ -1,14 +1,4 @@
 const db = require('../models');
-const config = require('config');
-const LRU = require("lru-cache"),
-  options = {
-    max: 500,
-    length: function(n) {
-      return 1;
-    },
-    maxAge: 1000 * 60 * config.get('cacheLength')
-  },
-  contentCache = LRU(options);
 
 // TODO: Can this be done by overriding the serialize method on the tag class?
 function postToJSON(post) {
@@ -27,42 +17,23 @@ function postToJSON(post) {
 exports.getPostsInCategory = function(category, page) {
   var limit = 5;
   var offset = (page - 1) * limit;
-  var cacheKey = "PostsInCategory" + category + page;
 
-  var contentItems = contentCache.get(cacheKey);
-
-  if (contentItems == null) {
-    return new db.post({
-      published: true
-    }).query(function(qb) {
-      qb.whereExists(function() {
-        this.select('*')
-            .from('posttag')
-            .innerJoin('tag', 'tag.id', 'posttag.tag_id')
-            .whereRaw('post.id = posttag.post_id and tag.name = ?', category);
-      });
-      qb.limit(limit).offset(offset).orderBy('updated_at', 'DESC');
-    }).fetchAll({
-      withRelated: ["user", "tags"]
-    }).then((posts) => {
-      console.log("Content cache expired, getting again");
-      contentCache.set(cacheKey, posts);
-      return posts;
+  return new db.post({
+    published: true
+  }).query(function(qb) {
+    qb.whereExists(function() {
+      this.select('*')
+          .from('posttag')
+          .innerJoin('tag', 'tag.id', 'posttag.tag_id')
+          .whereRaw('post.id = posttag.post_id and tag.name = ?', category);
     });
-  } else {
-    return contentItems;
-  }
+    qb.limit(limit).offset(offset).orderBy('updated_at', 'DESC');
+  }).fetchAll({
+    withRelated: ["user", "tags"]
+  });
 };
 
 exports.getPostsInCategoryCount = function(category) {
-  var cacheKey = "PostsInCategoryCount" + category;
-
-  var contentItems = contentCache.get(cacheKey);
-
-  if (contentItems) {
-    return contentItems;
-  }
-
   return new db.bookshelf.knex('post').where({
     published: true
   }).whereExists(function() {
@@ -70,41 +41,24 @@ exports.getPostsInCategoryCount = function(category) {
         .from('posttag')
         .innerJoin('tag', 'tag.id', 'posttag.tag_id')
         .whereRaw('post.id = posttag.post_id and tag.name = ?', category);
-  }).count().then(count => {
-    console.log("Content cache expired, getting again");
-    contentCache.set(cacheKey, count);
-    return count;
-  });
+  }).count();
 };
 
 exports.getTagsWithPosts = function() {
-  var cacheKey = "TagsWithPosts";
-
-  var contentItems = contentCache.get(cacheKey);
-
-  if (contentItems) {
-    return contentItems;
-  }
-
   return new db.bookshelf.knex('tag')
     .select('name')
     .count('name as tagcount')
     .innerJoin('posttag', 'tag.id', 'posttag.tag_id')
     .groupBy('name')
-    .orderBy('tagcount', 'DESC')
-    .then((tagsWithPosts) => {
-      console.log("Content cache expired, getting again");
-      contentCache.set(cacheKey, tagsWithPosts);
-      return tagsWithPosts;
-    });
+    .orderBy('tagcount', 'DESC');
 };
 
 exports.getPostsForCategoryPage = function(category, page) {
   var limit = 5;
 
   return Promise.all([this.getPostsInCategory(category, page),
-                this.getPostsInCategoryCount(category),
-                this.getTagsWithPosts()])
+    this.getPostsInCategoryCount(category),
+    this.getTagsWithPosts()])
   .then(([posts, count, tags]) => {
     var pages = Math.ceil(count[0].count / limit);
 
@@ -160,7 +114,6 @@ exports.getPostWithTagsAndUser = function(id) {
 };
 
 exports.saveOrUpdatePost = function(id, user, title, body, path, published, tags) {
-  contentCache.reset();
   var newTags = db.bookshelf.Collection.extend({
     model: db.tag
   });

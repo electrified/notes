@@ -5,14 +5,27 @@
     <% posts.forEach(function(post) { %>
         <%- include('post', {p: post, summary: false}) %>
     <% }) %>
+
+<ul class="pagination text-center" role="navigation" aria-label="Pagination" data-page="<%=page%>" data-total="<%=pages%>">
+<% if (page == 1) { %>
+    <li class="pagination-previous disabled">Previous <span class="show-for-sr">page</span></li>
+<% } else { %>
+    <li class="pagination-previous"><a href="?page=<%=(page-1)%>" aria-label="Previous page">Previous <span class="show-for-sr">page</span></a></li>
+<% } %>
     <% for(var i=1; i<=pages; i++) { %>
       <% if (i == page) { %>
-        <%=i%>
+        <li class="current"><span class="show-for-sr">You&quot;re on page</span> <%=i%></li>
       <% } else { %>
-        <a href="?page=<%=i%>"><%=i%></a>
+        <li><a href="?page=<%=i%>" aria-label="Page <%=i%>"><%=i%></a></li>
       <% } %>
     <% } %>
-<% } %>
+  <% } %>
+  <% if (page < pages) { %>
+    <li class="pagination-next"><a href="?page=<%=(page+1)%>" aria-label="Next page">Next <span class="show-for-sr">page</span></a></li>
+  <% } else { %>
+    <li class="pagination-next disabled">Next <span class="show-for-sr">page</span></li>
+  <% } %>
+</ul>
 </div>
 
 <% include sidebar %>

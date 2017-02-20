@@ -6,7 +6,10 @@ const path = require("path");
 const fs = require("fs");
 
 const router = express.Router();
-const md = new remarkable();
+const md = new remarkable({
+  html: true,
+  linkify: true,
+});
 
 const ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 const data = require('../../data/posts');
@@ -25,7 +28,7 @@ function textCutter(n, text) {
 var LRU = require("lru-cache"),
   options = {
     max: 500,
-    length: function() {
+    length: () => {
       return 1;
     },
     maxAge: 1000 * 60 * config.get('cacheLength')
@@ -42,15 +45,15 @@ router.use(/^\/(?!api).*$/, function(req, res, next) {
 
   var contentItems = contentCache.get("content");
 
-  if (contentItems == null) {
-    content.getAll().then(contentItems => {
-      // log.info("Content cache expired, getting again");
+  if (!contentItems) {
+    return content.getAll().then(contentItems => {
+      // console.log("Content cache expired, getting again");
       contentCache.set("content", contentItems);
       res.locals.content = contentItems;
       delete req.session.error;
       delete req.session.success;
-      next();
-    }).catch(next);
+    })
+    .then(next);
   } else {
     res.locals.content = contentItems;
     delete req.session.error;
@@ -60,8 +63,8 @@ router.use(/^\/(?!api).*$/, function(req, res, next) {
 });
 
 router.get(['/', '/category/:category'], function(req, res, next) {
-  let category = req.params.category || 'frontpage';
-  let page = req.query.page || 1;
+  const category = req.params.category || 'frontpage';
+  const page = parseInt(req.query.page || 1);
   data.getPostsForCategoryPage(category, page).then(function(results) {
     results.posts.forEach(post => {
       if (post.get('body')) {
@@ -129,34 +132,25 @@ router.get('/page/:path', function(req, res, next) {
   .catch(next);
 });
 
-router.get('/asset/:id', function(req, res, next) {
-  assets.getAssetById(req.params.id).then(asset => {
-    if (asset) {
-      var filename = path.join(config.get('assetsdir'), path.basename(req.params.id));
-
-      fs.exists(filename, function(exists) {
-        if (!exists) {
-          next();
-        }
-
-        fs.readFile(filename, "binary", function(err, file) {
-          if (err) {
-            next();
-          }
-
-          res.writeHead(200, {
-            "Content-Type": asset.mimetype,
-            "Expires": new Date(Date.now() + 345600000).toUTCString(),
-            "Cache-control": "public, max-age=345600" //4 days
-          });
-
-          res.write(file, "binary");
-          res.end();
-        });
-      });
-    } else {
-      next();
+router.get('/asset/:id', (req, res, next) => {
+  return assets.getAssetById(req.params.id).then(asset => {
+    if (!asset) {
+      return next();
     }
+    const filename = path.join(config.get('assetsdir'), path.basename(req.params.id));
+    return fs.readFile(filename, "binary", (err, file) => {
+      if (err) {
+        return next();
+      }
+      res.writeHead(200, {
+        "Content-Type": asset.asd,
+        "Expires": new Date(Date.now() + 345600000).toUTCString(),
+        "Cache-control": "public, max-age=345600" //4 days
+      });
+
+      res.write(file, "binary");
+      res.end();
+    });
   }).catch(next);
 });
 
