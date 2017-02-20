@@ -15,6 +15,7 @@ const session = require('express-session');
 const compress = require('compression');
 const errorhandler = require('errorhandler');
 const webpack = require('webpack');
+const helmet = require('helmet');
 const webpackConfig = require('./webpack.config.js');
 
 var bunyan = require('bunyan');
@@ -25,7 +26,14 @@ var log = bunyan.createLogger({
 app.set('bookshelf', exports.bookshelf);
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
-app.set('x-powered-by', false);
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'", "www.google-analytics.com"],
+      styleSrc: ["'self'", "'unsafe-inline'"]
+    }
+  }
+}));
 
 app.use(compress());
 app.use(favicon(__dirname + '/public/favicon.ico'));
