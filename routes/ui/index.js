@@ -143,7 +143,7 @@ router.get('/asset/:id', (req, res, next) => {
         return next();
       }
       res.writeHead(200, {
-        "Content-Type": asset.asd,
+        "Content-Type": asset.get('mimetype'),
         "Expires": new Date(Date.now() + 345600000).toUTCString(),
         "Cache-control": "public, max-age=345600" //4 days
       });
