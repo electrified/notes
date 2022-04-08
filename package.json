@@ -55,7 +55,7 @@
     "jquery": "^3.5.1",
     "knex": "^0.21.12",
     "lru-cache": "^4.1.5",
-    "moment": "^2.29.1",
+    "moment": "^2.29.2",
     "morgan": "^1.10.0",
     "node-sass": "^4.13.1",
     "nodemailer": "^2.6.4",
